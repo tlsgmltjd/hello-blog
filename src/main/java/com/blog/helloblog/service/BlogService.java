@@ -6,6 +6,8 @@ import com.blog.helloblog.repository.BlogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BlogService {
@@ -13,5 +15,9 @@ public class BlogService {
 
     public Article save(AddArticleRepuset repuset) {
         return blogRepository.save(repuset.toEntity());
+    }
+
+    public List<Article> findAll() {
+        return blogRepository.findAll();
     }
 }
