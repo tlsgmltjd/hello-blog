@@ -2,6 +2,7 @@ package com.blog.helloblog.controller;
 
 import com.blog.helloblog.domain.Article;
 import com.blog.helloblog.dto.request.AddArticleRepuset;
+import com.blog.helloblog.dto.request.RequestUpdateArticle;
 import com.blog.helloblog.dto.response.ArticleReponse;
 import com.blog.helloblog.service.BlogService;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +51,14 @@ public class BlogController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable Long id,
+                                                 @RequestBody RequestUpdateArticle request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
     }
 }
