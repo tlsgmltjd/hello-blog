@@ -125,4 +125,27 @@ class BlogControllerTest {
                 .andExpect(jsonPath("$.content").value(content))
                 .andExpect(jsonPath("$.title").value(title));
     }
+
+    @DisplayName("deleteArticle: 블로그 글 삭제에 성공한다")
+    @Test
+    public void deleteArticle() throws Exception {
+        // given - 블로그 글을 저장한다.
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        // when - 저장한 블로그의 글의 id값으로 하는 삭제 API를 호출한다.
+        final ResultActions resultActions = mockMvc.perform(delete(url, savedArticle.getId()));
+
+        // then - 응답 코드가 200, 블로그 글 리스트를 전체 조회해 조회한 배열의 크기가 0인지 확인
+        resultActions.andExpect(status().isOk());
+
+        List<Article> articles = blogRepository.findAll();
+        Assertions.assertThat(articles).isEmpty();
+    }
 }
