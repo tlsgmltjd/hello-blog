@@ -30,7 +30,6 @@ class BlogServiceTest {
         // given - 블로그 객체 저장
         String title = "title";
         String content = "content";
-        String url = "/api/articles/{id}";
 
         final AddArticleRepuset request = new AddArticleRepuset(title, content);
 
