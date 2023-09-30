@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,8 +22,7 @@ public class BlogController {
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRepuset repuset) {
         Article savedArticle = blogService.save(repuset);
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedArticle);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
 
     @GetMapping("/api/articles")
@@ -33,24 +31,22 @@ public class BlogController {
                 .stream()
                 .map(ArticleReponse::new)
                 .toList();
-        return ResponseEntity.ok()
-                .body(articles);
+
+        return ResponseEntity.status(HttpStatus.OK).body(articles);
     }
 
     @GetMapping("/api/articles/{id}")
     public ResponseEntity<ArticleReponse> findArticle(@PathVariable Long id) {
         Article article = blogService.findById(id);
 
-        return ResponseEntity.ok()
-                .body(new ArticleReponse(article));
+        return ResponseEntity.status(HttpStatus.OK).body(new ArticleReponse(article));
     }
 
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         blogService.delete(id);
 
-        return ResponseEntity.ok()
-                .build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/api/articles/{id}")
@@ -58,7 +54,6 @@ public class BlogController {
                                                  @RequestBody RequestUpdateArticle request) {
         Article updatedArticle = blogService.update(id, request);
 
-        return ResponseEntity.ok()
-                .body(updatedArticle);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedArticle);
     }
 }
