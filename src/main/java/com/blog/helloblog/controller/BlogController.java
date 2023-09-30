@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,6 @@ public class BlogController {
                 .stream()
                 .map(ArticleReponse::new)
                 .toList();
-
         return ResponseEntity.ok()
                 .body(articles);
     }
